@@ -10,7 +10,7 @@
 
 html {
   font-family: 'marydale';
-  background-color: #DDEEDD
+  background-color: #0C1C8C
 }
 
 body {
@@ -19,7 +19,7 @@ body {
 
 #wrapper {
   text-align: center;
-  background-color: #EEFFEE
+  background-color: #007C59
 }
 
 .tw_face {
@@ -29,7 +29,7 @@ body {
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
   margin: 20px;
-  border: #FEFF87 solid 10px;
+  border: #FCB514 solid 10px;
 }
 
 .tw_face:hover {
@@ -38,7 +38,7 @@ body {
   -o-transform: rotate(-5deg);
   -ms-transform: rotate(-5deg);
   transform: rotate(-5deg);
-  border: #FEFF30 solid 12px;
+  border: #000000 solid 12px;
 }
 
 #restart {
