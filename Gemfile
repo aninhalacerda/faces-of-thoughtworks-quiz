@@ -6,7 +6,7 @@ gem "mongoid"
 
 group :test do
 	gem "rack-test"
-  gem "rspec", ">= 2.14"
+  gem "rspec"
   gem "coveralls", :require => false
 	gem "simplecov", :require => false
 end

@@ -64,7 +64,7 @@ DEPENDENCIES
   mongoid
   rack-test
   rake
-  rspec (>= 2.14)
+  rspec
   shotgun
   simplecov
   sinatra
