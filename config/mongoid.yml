@@ -1,0 +1,18 @@
+development:
+  sessions:
+    default:
+      database: twfaces_dev
+      hosts:
+        - localhost
+
+test:
+  sessions:
+    default:
+      database: twfaces_test
+      hosts:
+        - localhost
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOLAB_URI'] %>
