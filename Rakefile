@@ -14,7 +14,7 @@ end
 
 desc "run prod"
 task :spec => "Gemfile.lock" do
-  sh "bundle exec thin app.rb -E test"
+  sh "bundle exec thin app.rb -E production"
 end
 
 task :test => :spec

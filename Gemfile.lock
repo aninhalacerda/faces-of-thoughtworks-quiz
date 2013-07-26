@@ -97,7 +97,6 @@ PLATFORMS
 DEPENDENCIES
   coveralls
   data_mapper
-  json
   rack-test
   rake
   rspec
