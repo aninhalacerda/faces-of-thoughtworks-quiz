@@ -1,0 +1,17 @@
+---
+applications:
+  .:
+    name: twfaces
+    framework:
+      name: rack
+      info:
+        mem: 128M
+        description: Rack Application
+        exec: 
+    infra: hp
+    url: ${name}.${target-base}
+    mem: 128M
+    instances: 1
+    services:
+      mongodb-7b07a:
+        type: mongodb
