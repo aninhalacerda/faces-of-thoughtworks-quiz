@@ -3,3 +3,5 @@
 .config
 vendor
 coverage
+public/app/bower_components
+public/app/node_modules
