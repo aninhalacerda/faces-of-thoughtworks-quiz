@@ -1,15 +1,21 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'rspec/core/rake_task'
+require "rubygems"
+require "bundler/setup"
+require "rspec/core/rake_task"
 
-desc "run sinatra app locally"
+desc "run dev"
 task :run => "Gemfile.lock" do
-  sh "shotgun app.rb"
+  sh "bundle exec shotgun app.rb -E development"
 end
 
 desc "run specs"
-RSpec::Core::RakeTask.new(:spec)
+task :spec => "Gemfile.lock" do
+  sh "bundle exec rackup app.rb -E test"
+end
 
+desc "run prod"
+task :spec => "Gemfile.lock" do
+  sh "bundle exec thin app.rb -E test"
+end
 
 task :test => :spec
 task :default => :run

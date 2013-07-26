@@ -1,13 +1,21 @@
-require 'csv'
+require "csv"
+require "data_mapper"
 
 class Person
-	attr_reader :gender, :name, :id, :picture
+  include DataMapper::Resource
+  property :id, Serial
+  property :name, String
+  property :link, String
+  property :gender, Enum[:male, :female]
 
-	def initialize(args={})
-		@gender = args[:gender];
-		@name = args[:name];
-		@id = args[:id];
-		@picture = args[:picture];
-	end
+  def self.from_csv gender, name, id, link
+    @gender, @name, @id, @link = gender.to_sym, name, id.to_i, link
+  end
+
+  def self.all_csv(csv_file)
+    people = []
+    CSV.foreach(csv_file) { |row| people << Person.from_csv(*row) }
+    return people
+  end
 
 end
