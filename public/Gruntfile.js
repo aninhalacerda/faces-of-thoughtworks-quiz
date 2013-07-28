@@ -144,7 +144,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            // '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/styles/fonts/*'
           ]
         }
@@ -223,6 +223,7 @@ module.exports = function (grunt) {
             'api/**/*',
             'images/{,*/}*.{gif,webp,svg}',
             'pics/{,*/}*.{jpg,jpeg,png}',
+            'flags/{,*/}*.{jpg,jpeg,png}',
             'styles/fonts/*'
           ]
         }, {
