@@ -21,12 +21,12 @@
 	{"name":"Gurgaon", "flag":"flags/india.png","slug":"gurgaon"},
 	{"name":"Pune", "flag":"flags/india.png","slug":"pune"},
 
-	{"name":"Atlanta", "flag":"flags/eua.png","slug":"atlanta"},
-	{"name":"Chicago", "flag":"flags/eua.png","slug":"chicago"},
-	{"name":"San Fransisco", "flag":"flags/eua.png","slug":"san_fransico"},
-	{"name":"Austin", "flag":"flags/eua.png","slug":"austin"},
-	{"name":"Dalas", "flag":"flags/eua.png","slug":"dalas"},
-	{"name":"New York", "flag":"flags/eua.png","slug":"new_york"},
+	{"name":"Atlanta", "flag":"flags/EUA.png","slug":"atlanta"},
+	{"name":"Chicago", "flag":"flags/EUA.png","slug":"chicago"},
+	{"name":"San Fransisco", "flag":"flags/EUA.png","slug":"san_fransico"},
+	{"name":"Austin", "flag":"flags/EUA.png","slug":"austin"},
+	{"name":"Dalas", "flag":"flags/EUA.png","slug":"dalas"},
+	{"name":"New York", "flag":"flags/EUA.png","slug":"new_york"},
 	{"name":"Toronto", "flag":"flags/canada.png","slug":"toronto"},
 
 	{"name":"Porto Alegre", "flag":"flags/BR.png","slug":"porto_alegre"},
