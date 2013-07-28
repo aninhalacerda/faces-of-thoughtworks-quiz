@@ -46,7 +46,7 @@ angular.module('collection', []).
 		};
 
 		ArrayCollection.prototype.remove = function(item){
-			var index = this.items.indexOf(item);
+			var index = this.itemIndex(item);
 			this.items.splice(index, 1);
 		};
 
@@ -55,12 +55,12 @@ angular.module('collection', []).
 		};
 
 		ArrayCollection.prototype.getNext = function(refenceItem){
-			var nextIndex = this.items.indexOf(refenceItem) + 1;
+			var nextIndex = this.itemIndex(refenceItem) + 1;
 			return this.getAt( nextIndex );
 		};
 
 		ArrayCollection.prototype.getPrevious = function(refenceItem){
-			var previousIndex = this.items.indexOf(refenceItem) - 1;
+			var previousIndex = this.itemIndex(refenceItem) - 1;
 			return this.getAt( previousIndex );
 		};
 
@@ -69,16 +69,32 @@ angular.module('collection', []).
 		};
 
 		ArrayCollection.prototype.haveNext = function(referenceItem){
-			return this.items.indexOf(referenceItem)+1 < this.size();
+			return this.itemIndex(referenceItem)+1 < this.size();
 		};
 
 		ArrayCollection.prototype.havePrevious = function(referenceItem){
-			return this.items.indexOf(referenceItem) > 0;
+			return this.itemIndex(referenceItem) > 0;
 		};
 
 		ArrayCollection.prototype.contains = function(referenceItem) {
-			return this.items.indexOf(referenceItem) >= 0;
+			return this.itemIndex(referenceItem) >= 0;
 		};
+
+		ArrayCollection.prototype.itemIndex = function(referenceItem) {
+			var idx = this.items.indexOf(referenceItem);
+
+			if( idx >= 0 ) return idx;
+
+			for (var i = 0; i < this.items.length; i++) {
+				if( this.items[i].hasOwnProperty('id') && referenceItem.hasOwnProperty('id') && this.items[i].id === referenceItem.id){
+					idx = i;
+					break;
+				}
+			};
+
+			return idx;
+		};
+
 		ArrayCollection.prototype.notContains = function(referenceItem) {
 			return !this.contains(referenceItem);
 		};

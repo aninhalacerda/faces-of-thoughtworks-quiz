@@ -1,6 +1,6 @@
 angular.module('facesQuizApp.service').
-	factory('Crowd',['$cookieStore', 'ArrayCollection', 'ArrayFilter',
-		function($cookieStore, ArrayCollection, ArrayFilter){
+	factory('Crowd',['ArrayCollection', 'ArrayFilter',
+		function(ArrayCollection, ArrayFilter){
 
 			var Crowd = function(allPeople, ignoredPeople){
 				var that = this;
@@ -57,15 +57,9 @@ angular.module('facesQuizApp.service').
 			Crowd.prototype.ignore = function(person){
 				this.ignoredPeople.add(person);
 				this.avaliablePeople.remove(person);
-				this.save();
 			}
 
-			Crowd.prototype.save = function() {
-				$cookieStore.put('ignored_people', this.ignoredPeople.items);
-			};
-
 			Crowd.prototype.reset = function() {
-				$cookieStore.remove('ignored_people');
 				this.avaliablePeople = new ArrayCollection(this.all.items);
 				this.ignoredPeople = new ArrayCollection();
 			};

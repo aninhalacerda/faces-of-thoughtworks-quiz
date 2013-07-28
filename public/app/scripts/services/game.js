@@ -1,19 +1,28 @@
 angular.module('facesQuizApp.service').
-	factory('Game', ['$cookieStore', 'statistics', 'Crowd',
-		function ($cookieStore, statistics, Crowd) {
+	factory('Game', ['Statistics', 'Crowd', 'PubSub',
+		function (Statistics, Crowd, PubSub) {
 
-		var Game = function(thoughtworkers){
-			this.statistics = statistics;
-			this.people = new Crowd(thoughtworkers, $cookieStore.get('ignored_people'));
+		var Game = function(name, people, ignoredPeople){
+			this.statistics = new Statistics(name);
+			this.people = new Crowd(people, ignoredPeople);
+			this.name = name;
+		}
+
+		Game.prototype = new PubSub();
+
+		Game.prototype.constructor = Game;
+
+		Game.prototype.start = function(){
 			if(this.people.isThereAnyAvaliablePeople()){
-				this.start();
+				this.firstTurn();
+				this.broadcast('start', this);
 			} else {
 				this.endGame();
 			}
 		}
 
-		Game.prototype.start = function() {
-			this.ended = $cookieStore.get('ended') || false;
+		Game.prototype.firstTurn = function() {
+			this.ended = false;
 			this.nextTurn();
 		};
 
@@ -23,18 +32,21 @@ angular.module('facesQuizApp.service').
 			this.people.reset();
 			this.challengePerson = undefined;
 			this.challengeGroup = undefined;
-			this.start();
+			this.firstTurn();
+			this.broadcast('reset', this);
 		};
 
 		Game.prototype.guessPerson = function(person) {
 			if( this.isRightGuess(person) ){
 				this.point();
 				this.endTurn();
-				return true;
 			} else {
 				this.mistake();
-				return false;
 			}
+		};
+
+		Game.prototype.challengePersonIndex = function() {
+			return this.people.all.itemIndex(this.challengePerson)
 		};
 
 		//private
@@ -44,9 +56,11 @@ angular.module('facesQuizApp.service').
 		Game.prototype.point = function() {
 			this.statistics.point();
 			this.people.ignore(this.challengePerson);
+			this.broadcast('point', this.challengePerson);
 		};
 
 		Game.prototype.mistake = function() {
+			this.broadcast('mistake', this.challengePerson);
 			this.statistics.mistake();
 		};
 
@@ -61,7 +75,7 @@ angular.module('facesQuizApp.service').
 
 		Game.prototype.endGame = function(first_argument) {
 			this.ended = true;
-			$cookieStore.get('ended', true);
+			this.broadcast('gameover', this);
 		};
 
 		Game.prototype.nextTurn = function(first_argument) {
@@ -75,6 +89,8 @@ angular.module('facesQuizApp.service').
 			}
 
 			this.challengeGroup.shuffle();
+
+			this.broadcast('turn', this);
 		};
 
 		return Game;

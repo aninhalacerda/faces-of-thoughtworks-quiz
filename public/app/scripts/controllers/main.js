@@ -1,63 +1,61 @@
 'use strict';
 
-angular.module('facesQuizApp')
-  .controller('MainCtrl', ['$scope', '$timeout', 'Game', 'thoughtworkers',
-    function ($scope, $timeout, Game, thoughtworkers) {
+angular.module('facesQuizApp').
+	directive('twScrollTo', [function(){
+		return {
+			link: function (scope, element, attrs) {
+				scope.$watch(function(scope){
+					return scope.$eval(attrs.twScrollTo);
+				}, function( scrollIndex ){
 
-    var mistakes = [];
+					var children = element.children(),
+							idx = parseInt(scrollIndex,10),
+							target;
 
-    $scope.loading = true;
+					if(idx >= 0 && children.length > 0){
+						target = angular.element(children[idx]);
 
-    thoughtworkers.query().then(
-    	function(people){
-    		$scope.game = new Game(people);
-    		$scope.loading = false;
-    	},
-    	function(){
-			$scope.loading = false;
-			$scope.failure = true;
-    	});
+						element.animate({ scrollTop: ((idx/6) * 60) - 60});
+					}
+				});
+			}
+		}
+	}]).
 
-    $scope.resetGame = function(){
-        $scope.game.reset();
-        mistakes = [];
-    }
+	controller('AdminPeopleCtrl',['$scope', 'office', '$routeParams', function($scope, office, $routeParams){
+		var backupName;
 
-    $scope.isMistake = function(person){
-        return mistakes.indexOf(person) >= 0;
-    }
+		$scope.office = office;
+		$scope.model = {};
+		$scope.model.person = {};
 
-    $scope.mistakesAnimationAt = function(index){
-        return mistakes[index];
-    }
-    $scope.guess = doGuess;
-    function doGuess(person, index){
-        if(mistakes[ index ]) return;
+		$scope.cancel = function(){
+			$scope.model.person.name = backupName;
+			$scope.model.person = {};
+		}
 
-        if( $scope.game.guessPerson(person) ){
-            mistakes = [];
-            waitToAcceptGuessAgain();
-        } else {
-            mistakes[ index ] = missAnimations();
-        }
-    }
+		$scope.edit = function(person){
+			$scope.model.person = person;
+			backupName = person.name;
+		}
 
-    function missAnimations(){
-        // var possibilities = ['wobble','fadeOutUp', 'hinge', 'shake', 'swing'],
-        var possibilities = ['wobble'],
-            rnd = Math.floor(Math.random() * possibilities.length),
-            animations = ['miss'];
 
-            animations.push(possibilities[rnd]);
+		$scope.save = function(){
+			$scope.model.person = {};
+		}
 
-        return animations.join(' ');
-    }
+	}]).
 
-    function waitToAcceptGuessAgain(){
-        $scope.guess = function(){};
-        $timeout(function(){
-            $scope.guess = doGuess;
-        }, 200);
-    }
+	controller('HomeCtrl',['$scope', '$http', 'ArrayCollection', function($scope, $http, ArrayCollection){
 
-  }]);
+		$scope.model = {
+			offices : [],
+			selected : undefined
+		}
+
+		$http.get('api/offices.json').then(function(response){
+			$scope.model.offices = new ArrayCollection(response.data);
+			$scope.model.offices.shuffle();
+		});
+
+	}]);

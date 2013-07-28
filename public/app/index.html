@@ -14,7 +14,15 @@
     <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="bower_components/animate.css/animate.css">
+    <link rel="stylesheet" href="styles/clearfix.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="styles/game.css">
+    <style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none;
+    }
+    </style>
     <!-- endbuild -->
 
 </head>
@@ -27,10 +35,10 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <header>
-      <img class="app-logo" src="images/background.png">
-    </header>
-    <div ng-view=""></div>
+
+    <!-- <div class="game-score"></div> -->
+
+    <div ng-view></div>
 
   </body>
 
@@ -44,9 +52,11 @@
 
 
     <!-- build:js scripts/modules.js -->
-    <!-- <script src="bower_components/angular/angular.js"></script> -->
-    <script src="http://code.angularjs.org/1.1.5/angular.js"></script>
 
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <script src="scripts/angular-1.1.5.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <!-- endbuild -->
@@ -54,11 +64,15 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/game-controller.js"></script>
     <script src="scripts/services/collection.js"></script>
     <script src="scripts/services/game.js"></script>
     <script src="scripts/services/crowd.js"></script>
     <script src="scripts/services/statistics.js"></script>
+    <script src="scripts/services/pubsub.js"></script>
     <script src="scripts/services/thoughtworkers.js"></script>
+    <script src="scripts/services/local-storage.js"></script>
+
     <!-- endbuild -->
 
 </body>

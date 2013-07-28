@@ -1,29 +1,38 @@
 angular.module('facesQuizApp.service').
-	service('statistics', ['$cookieStore', function ($cookieStore) {
+	factory('Statistics', ['$cookieStore',function ($cookieStore) {
+
+		var Statistics = function(name){
+			this.name = name;
+			this.load();
+			this.update();
+		}
+
 		//public
-		this.reset = function(){
+		Statistics.prototype.point = function(){
+			this.score++;
+			this.update();
+			this.save();
+		}
+
+		Statistics.prototype.mistake = function(){
+			this.mistakes++;
+			this.update();
+			this.save();
+		}
+
+		Statistics.prototype.update = function() {
+			this.percentage = (100 / (this.score + this.mistakes) ) * this.score || 0;
+		};
+
+		Statistics.prototype.reset = function(){
 			this.score = 0;
 			this.mistakes = 0;
+			this.update();
 			this.save(this);
 		}
 
-		this.point = function(){
-			this.score++;
-			this.save();
-		}
-
-		this.mistake = function(){
-			this.mistakes++;
-			this.save();
-		}
-
 		//private
-		this.save = function(){
-			$cookieStore.put('score', this.score);
-			$cookieStore.put('mistakes', this.mistakes);
-		}
-
-		this.initialize = function(){
+		Statistics.prototype.load = function() {
 			if(this.isPersisted()){
 				this.loadStatistics()
 			} else {
@@ -31,19 +40,25 @@ angular.module('facesQuizApp.service').
 			}
 		}
 
-		this.isPersisted = function(){
-			return  $cookieStore.get('score') !== undefined &&
-					$cookieStore.get('mistakes') !== undefined
+		Statistics.prototype.save = function(){
+			$cookieStore.put(this.name+'_score', this.score);
+			$cookieStore.put(this.name+'_mistakes', this.mistakes);
 		}
 
-		this.loadStatistics = function(){
-			this.score = $cookieStore.get('score');
-			this.mistakes = $cookieStore.get('mistakes');
+		Statistics.prototype.isPersisted = function(){
+			return  $cookieStore.get(this.name+'_score') !== undefined &&
+					$cookieStore.get(this.name+'_mistakes') !== undefined
 		}
 
-		this.createStatistics = function(){
+		Statistics.prototype.loadStatistics = function(){
+			this.score = $cookieStore.get(this.name+'_score');
+			this.mistakes = $cookieStore.get(this.name+'_mistakes');
+		}
+
+		Statistics.prototype.createStatistics = function(){
 			this.reset();
 		}
 
-		this.initialize();
+		return Statistics;
+
 	}]);
