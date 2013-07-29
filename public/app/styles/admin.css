@@ -39,3 +39,13 @@
 	top: 10px;
 	left: 10px;
 }
+
+.admin-people-view .icon-male,
+.admin-people-view .icon-female {
+	font-size: 60px;
+	color: #B7B7B5;
+}
+
+.admin-people-view .admin-actions{
+	margin: 10px 0;
+}

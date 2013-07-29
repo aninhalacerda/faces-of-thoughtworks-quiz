@@ -1,34 +1,45 @@
 angular.module('facesQuizApp').
-	controller('MainCtrl', ['$scope', 'localStorage', 'Game', 'office',
-		function ($scope, localStorage, Game, office) {
+	controller('GameCtrl', ['$scope', '$http', '$routeParams', 'localStorage' ,'Game',
+		function ($scope, $http, $routeParams, localStorage, Game) {
 			var game, mistakes, miniFaces = [];
-			$scope.office = office;
-			$scope.game = new Game(office.slug, office.people, findRecognizedPeople(office.people));
 
-			$scope.game.on('start', function(){
-				cleanMistakes();
-			});
+			$http.get('api/offices/'+ $routeParams.office)
+        .success(function(office){
 
-			$scope.game.on('turn', function(){
-				cleanMistakes();
-			});
+          $scope.office = office;
+					$scope.game = new Game(office.slug, office.people, findRecognizedPeople(office.people));
 
-			$scope.game.on('point', function(){
-				saveRecognizedPeople();
-				cleanMistakes();
-				saveMiniFace()
-			});
+					$scope.game.on('start', function(){
+						cleanMistakes();
+					});
 
-			$scope.game.on('reset', function(){
-				localStorage.clearEndGame($scope.office.name);
-				deleteRecognizedPeople();
-			});
+					$scope.game.on('turn', function(){
+						cleanMistakes();
+					});
 
-			$scope.game.on('gameover', function(){
-				localStorage.saveEndGame($scope.office.name);
-			});
+					$scope.game.on('point', function(){
+						saveRecognizedPeople();
+						cleanMistakes();
+						saveMiniFace()
+					});
 
-			$scope.game.start();
+					$scope.game.on('reset', function(){
+						localStorage.clearEndGame($scope.office.name);
+						deleteRecognizedPeople();
+					});
+
+					$scope.game.on('gameover', function(){
+						localStorage.saveEndGame($scope.office.name);
+					});
+
+					if(office.people.length > 4){
+						$scope.game.start();
+					}
+
+        })
+        .error(function(data, status){
+          $scope.failure = true;
+        });
 
 			$scope.reset = function(){
 				$scope.game.reset();

@@ -79,8 +79,9 @@ angular.module('facesQuizApp.service').
 		};
 
 		Game.prototype.nextTurn = function(first_argument) {
+			var num = Math.min(4, this.people.all.size());
 			this.challengePerson = this.people.getOneAvaliable();
-			this.challengeGroup = this.people.sample(4, this.challengePerson.gender);
+			this.challengeGroup = this.people.sample(num, this.challengePerson.gender);
 
 
 			if(this.challengeGroup.notContains( this.challengePerson )){

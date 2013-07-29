@@ -1,18 +1,20 @@
 require "csv"
-require "data_mapper"
+require "mongoid"
 
 class Person
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, String
-  property :picture, String
-  property :gender, Enum[:male, :female]
+  include Mongoid::Document
+  field :name, :type => String
+  field :picture, :type => String
+  field :gender, :type => Symbol
+
+  validates_presence_of :name, :gender
+  embedded_in :office
 
   def self.from_csv gender, name, id, link
     person = Person.new
     person.name = name
-    person.picture = link
     person.gender = gender.to_sym
+    person.picture = link
     return person
   end
 

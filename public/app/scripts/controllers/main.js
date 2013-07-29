@@ -22,30 +22,6 @@ angular.module('facesQuizApp').
 		}
 	}]).
 
-	controller('AdminPeopleCtrl',['$scope', 'office', '$routeParams', function($scope, office, $routeParams){
-		var backupName;
-
-		$scope.office = office;
-		$scope.model = {};
-		$scope.model.person = {};
-
-		$scope.cancel = function(){
-			$scope.model.person.name = backupName;
-			$scope.model.person = {};
-		}
-
-		$scope.edit = function(person){
-			$scope.model.person = person;
-			backupName = person.name;
-		}
-
-
-		$scope.save = function(){
-			$scope.model.person = {};
-		}
-
-	}]).
-
 	controller('HomeCtrl',['$scope', '$http', 'ArrayCollection', function($scope, $http, ArrayCollection){
 
 		$scope.model = {
@@ -53,9 +29,13 @@ angular.module('facesQuizApp').
 			selected : undefined
 		}
 
-		$http.get('api/offices.json').then(function(response){
+		$http.get('api/offices').then(function(response){
 			$scope.model.offices = new ArrayCollection(response.data);
 			$scope.model.offices.shuffle();
 		});
+
+	}]).
+
+	controller('AvatarUploadCtrl', ['$scope', function($scope){
 
 	}]);

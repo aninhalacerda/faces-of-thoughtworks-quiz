@@ -1,15 +1,6 @@
-require "simplecov"
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-]
-SimpleCov.start do
-	add_filter "vendor"
-end
-
 require "rspec"
 require "rack/test"
-require "app"
+require "./app"
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
@@ -22,4 +13,9 @@ RSpec.configure do |conf|
 
   # Use the specified formatter
   conf.formatter = :documentation # :progress, :html, :textmate
+
+  # Clean db
+  conf.after(:each) do
+    Mongoid.default_session.collections.each { |coll| coll.drop unless /^system/.match(coll.name) }
+  end
 end

@@ -1,9 +1,10 @@
 source "https://rubygems.org"
 
 gem "sinatra"
+gem "sinatra-contrib"
 gem "rake"
-gem "thin"
-gem "data_mapper"
+gem "mongoid"
+gem "mime-types"
 
 group :test do
 	gem "rack-test"
@@ -14,4 +15,7 @@ end
 
 group :development do
 	gem "shotgun"
+end
+
+group :production do
 end

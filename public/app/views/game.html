@@ -1,8 +1,7 @@
 <div class="game-view clearfix">
 
-	<div class="game-score-view" ng-hide="game.failure || game.loading">
+	<div class="game-score-view" ng-hide="failure || game.loading">
 		<h2 class="game-score-office" ng-bind="office.name"></h2>
-
 		<div class="game-score-faces clearfix" tw-scroll-to="foundIndex">
 			<div class="mini-face"
 					 ng-class="cssMiniFaceAt($index)"
@@ -45,7 +44,7 @@
 
 		<h2 ng-show="loading">Loading</h2>
 
-		<div ng-show="game.failure">
+		<div ng-show="failure">
 			<h2 >Something went wrong when loading players</h2>
 			<a class="btn btn-gray fr" href="#">Leave</a>
 		</div>
@@ -56,7 +55,7 @@
 				Congratulation! You know everyone at <b class="tw_name">{{office.name}}</b>
 			</h2>
 
-			<div ng-show="!game.failure || !game.loading" ng-hide="game.ended">
+			<div ng-show="!failure || !game.loading" ng-hide="game.ended">
 
 				<div class="tw_faces clearfix">
 

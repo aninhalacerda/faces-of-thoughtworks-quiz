@@ -16,7 +16,7 @@
 	<div class="clearfix" ng-init="model.person = {}">
 		<div class="w50 fl">
 
-			<p class="meta">{{(model.person.id)?'Edit':'New'}} Thoughtworker</p>
+			<p class="meta">{{(model.person._id)?'Edit':'New'}} Thoughtworker</p>
 
 			<div class="people-picture" ng-show="model.person.picture">
 				<img ng-src="{{model.person.picture}}">
@@ -31,14 +31,19 @@
 						 placeholder="Thoughtworker"
 						 ng-model="model.person.name">
 
-			<div ng-show="model.person.id">
-				<a class="btn btn-green" ng-click="save()">Save</a>
-				<a class="btn btn-gray" ng-click="cancel()">Cancel</a>
-				<!-- <a class="btn btn-red">Delete</a> -->
+			<div>
+				<input class="input-big" type="radio" ng-model="model.person.gender" value="m"> <i class="icon-male"></i>
+				<input class="input-big" type="radio" ng-model="model.person.gender" value="f"> <i class="icon-female"></i>
 			</div>
 
-			<div ng-hide="model.person.id">
-				<a class="btn btn-green" ng-click="save()">Create</a>
+			<div ng-show="model.person._id" class="admin-actions">
+				<a class="btn btn-green" ng-click="save()">Save</a>
+				<a class="btn btn-gray" ng-click="cancel()">Cancel</a>
+				<a class="btn btn-red" ng-click="delete()">Delete</a>
+			</div>
+
+			<div ng-hide="model.person._id" class="admin-actions">
+				<a class="btn btn-green" ng-click="create()">Create</a>
 			</div>
 		</div>
 
