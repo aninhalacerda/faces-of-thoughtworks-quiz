@@ -29,7 +29,7 @@ angular.module('facesQuizApp').
 			selected : undefined
 		}
 
-		$http.get('api/offices').then(function(response){
+		$http.get('api/offices.json').then(function(response){
 			$scope.model.offices = new ArrayCollection(response.data);
 			$scope.model.offices.shuffle();
 		});

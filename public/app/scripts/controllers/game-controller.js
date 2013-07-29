@@ -3,7 +3,7 @@ angular.module('facesQuizApp').
 		function ($scope, $http, $routeParams, localStorage, Game) {
 			var game, mistakes, miniFaces = [];
 
-			$http.get('api/offices/'+ $routeParams.office)
+			$http.get('api/offices/'+ $routeParams.office + ".json")
         .success(function(office){
 
           $scope.office = office;

@@ -31,7 +31,7 @@ angular.module('facesQuizApp').
 
 		$scope.save = function(){
 			$scope.state = 'saving';
-			$http.put('api/offices/'+ $routeParams.office._id, $scope.model.office).
+			$http.put('api/offices/'+ $routeParams.office.slug, $scope.model.office).
 				success(function(){
 					$scope.model.office = {};
 					$scope.state = 'ok';
@@ -43,7 +43,7 @@ angular.module('facesQuizApp').
 
 		$scope.delete = function(){
 			$scope.state = 'deleting';
-			$http.delete('api/offices/'+ $scope.model.office.slug).
+			$http.delete('api/offices/'+ $scope.model.office.slug + ".json").
 				success(function(){
 					var idx = $scope.offices.indexOf($scope.model.office);
 					$scope.offices.splice(idx, 1);
@@ -77,7 +77,7 @@ angular.module('facesQuizApp').
 
 		$scope.state = 'loading';
 
-		$http.get('api/offices/'+ $routeParams.office).
+		$http.get('api/offices/'+ $routeParams.office + '.json').
 			success(function(office){
 				$scope.state = 'ok';
 				$scope.office = office;
@@ -101,7 +101,7 @@ angular.module('facesQuizApp').
 
 		$scope.save = function(){
 			$scope.state = 'saving';
-			$http.put('api/offices/'+ $routeParams.office +'/people', $scope.model.person).
+			$http.put('api/offices/'+ $routeParams.office +'/people.json', $scope.model.person).
 				success(function(){
 					$scope.model.person = {};
 					$scope.state = 'ok';
@@ -113,7 +113,7 @@ angular.module('facesQuizApp').
 
 		$scope.delete = function(){
 			$scope.state = 'deleting';
-			$http.delete('api/offices/'+ $routeParams.office +'/people', {data: $scope.model.person}).
+			$http.delete('api/offices/'+ $routeParams.office +'/people.json', {data: $scope.model.person}).
 				success(function(){
 					var idx = $scope.office.people.indexOf($scope.model.person);
 					$scope.office.people.splice(idx, 1);
@@ -127,7 +127,7 @@ angular.module('facesQuizApp').
 
 		$scope.create = function(){
 			$scope.state = 'create';
-			$http.post('api/offices/'+ $routeParams.office +'/people', $scope.model.person).
+			$http.post('api/offices/'+ $routeParams.office +'/people.json', $scope.model.person).
 				success(function(savedPerson){
 					$scope.model.person = {};
 					$scope.office.people.push(savedPerson);
