@@ -1,4 +1,8 @@
 [
-	{"gender": "m","name": "James Muranga","id": "1","picture": "1.jpg"},
-	{"gender": "m","name": "Felix Kitaka","id": "2","picture": "2.png"}
+	{"gender": "m","name": "MJ","id": "1","picture": "1.jpg"},
+	{"gender": "m","name": "Felix","id": "2","picture": "2.png"},
+	{"gender": "m","name": "Faris","id": "3","picture": "3.jpg"},
+	{"gender": "m","name": "NavaL","id": "4","picture": "4.jpg"},
+	{"gender": "m","name": "SMS","id": "5","picture": "5.jpg"},
+	{"gender": "m","name": "Vivek","id": "6","picture": "6.jpg"},
 ]
