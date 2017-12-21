@@ -32,7 +32,7 @@ class Crowd
   def self.load_data
     return if @@people
     @@people, @@people_by_gender = [], { :m => [],  :f => [] }
-    CSV.foreach(File.join(settings.root, "resources/peeps.csv")) do |row|
+    CSV.foreach(File.join(__dir__, "../resources/peeps.csv")) do |row|
       person = Person.new(*row)
       @@people << person
       @@people_by_gender[person.gender] << person
